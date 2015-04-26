@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
     Animator anim; 
 
@@ -16,9 +16,9 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
 
         float input_x = Input.GetAxisRaw("Horizontal");
-        float input_y = Input.GetAxisRaw("Vertical");
-		bool input_fire = Input.GetButton ("Fire1");
+		float input_y = Input.GetAxisRaw("Vertical");
 
+		bool input_fire = Input.GetButton ("Fire1");
         bool isWalking = (Mathf.Abs(input_x) + Mathf.Abs(input_y)) > 0;
 
         anim.SetBool("isWalking", isWalking);
@@ -29,10 +29,11 @@ public class PlayerMovement : MonoBehaviour {
 
             transform.position += new Vector3(input_x, input_y, 0).normalized * Time.deltaTime;
         }
-
+		
 		anim.SetBool ("isStriking", input_fire);
-		if (input_fire) {
-			
+		if (input_fire)
+		{
+
 		}
 	}
 }
