@@ -1,0 +1,57 @@
+﻿using UnityEngine;
+using System;
+using System.Collections.Generic;  // lets us use lists
+using Random = UnityEngine.Random; // tells Random to use Unity Engine random number generator
+
+public class GameBoardCtrl : MonoBehaviour 
+{
+	public float tileSize = 0.4f; // the size of our tiles wich will be used to increment floor space acordingly
+	public int gridSize = 10; // the dimensions of our board to be rendered 
+	public GameObject[] floorTiles; // out list of floor tiles to be used
+
+    Vector3 cameraPosition;
+	private List <Vector3> gridPositions = new List <Vector3> (); //A list of possible locations to place tiles.
+
+	//sets up a list of possible grid positions
+	void initialiseGrid()
+	{
+        gridPositions.Clear();
+        cameraPosition = transform.position;
+
+        int i, j;
+		float x;
+		float y;
+
+        //sets the grid positions as a function of the camera postion so that new terrain can be generated after the initial start
+		for( x = cameraPosition.x, i = -gridSize ;i < gridSize; i++)
+		{
+			for( y = cameraPosition.y, j = -gridSize ; j < gridSize; j++)
+			{
+                gridPositions.Add(new Vector3(x + (i * tileSize), y + (j * tileSize), 0));
+			}
+		}
+	}
+
+	void setBoard ()
+	{
+        
+		foreach (Vector3 step in gridPositions)
+		{
+            //randomly select wich floorTiles we are going to instantiate
+            GameObject toInstatiate = floorTiles[Random.Range(0, floorTiles.Length)];
+
+            //instantiate the random floor tile, set its position to the index vector3 "step" and set the orientation to normal
+            GameObject instance = Instantiate(toInstatiate, step, Quaternion.identity) as GameObject;
+
+		}
+	}
+
+    public void setupScene()
+    {
+        //calls initialisegrid method to generate the grid list
+        initialiseGrid();
+
+        //call setBoard method to setup the board
+        setBoard();
+    }
+}
