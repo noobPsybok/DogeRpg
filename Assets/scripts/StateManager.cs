@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FollowCam : MonoBehaviour {
+public class StateManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
