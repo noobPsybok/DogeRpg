@@ -14,12 +14,11 @@ public class CameraFollow : MonoBehaviour {
 	void Start () 
     {
 		myCam = GetComponent<Camera>();
-        gameBoard = GetComponent<GameBoardCtrl>();
 
-        pos_x = (int)transform.position.x;
-        pos_y = (int)transform.position.y;
-        Debug.Log("pos_x in start fuction is :" + pos_x);
-        Debug.Log("pos_y in start function is:" + pos_y);
+        // Keep a consistent size view ratio, no matter the screen size
+        myCam.orthographicSize = Screen.height / 100f / 4f;
+        Debug.Log(myCam.orthographicSize);
+        gameBoard = GetComponent<GameBoardCtrl>();
 
         size = gameBoard.gridSize;
 
@@ -32,11 +31,10 @@ public class CameraFollow : MonoBehaviour {
 		
 		// Keep a consistent size view ratio, no matter the screen size
 		myCam.orthographicSize = Screen.height / 100f / 4f;
+        
 
         pos_x = (int)transform.position.x;
         pos_y = (int)transform.position.y;
-        Debug.Log("pos_x in Update fuction is :" + pos_x);
-        Debug.Log("pos_y in Update function is:" + pos_y);
 		
 		if(target)
 		{
@@ -46,9 +44,10 @@ public class CameraFollow : MonoBehaviour {
         /**************************************************
          * this generates a map based on your location    *
          * however it keeps regenerating one you exeed the*
-         * renderBoundy so yea
+         * renderBoundy so yea. im gonna make this an event
+         * eventually
          *************************************************/
-        if (pos_x > (size /2) || pos_y > (size / 2))
+        if (Mathf.Abs(pos_x) % size == (size /2) || Mathf.Abs(pos_y) % size == (size / 2))
         {
             gameBoard.setupScene();
         }
