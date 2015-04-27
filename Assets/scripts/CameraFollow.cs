@@ -3,19 +3,28 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour {
 
-    private int renderBoundry;
 	public Transform target; // Target of what to follow
-	Camera myCam;
-    private GameBoardCtrl gameBoard;
-	
+	Camera myCam;//reference type wich store a reference to the camera game object
+    GameBoardCtrl gameBoard;//reference to the GameBoardCtrl
+    private int size;//variable wich will hold the value of the gridSize in Game
+    private int pos_x;//variable which will hold the value of cameras x position
+    private int pos_y;//variable which will hold the value of cameras y position
+
 	// Use this for initialization
-	void Start () {
-		
+	void Start () 
+    {
 		myCam = GetComponent<Camera>();
         gameBoard = GetComponent<GameBoardCtrl>();
 
+        pos_x = (int)transform.position.x;
+        pos_y = (int)transform.position.y;
+        Debug.Log("pos_x in start fuction is :" + pos_x);
+        Debug.Log("pos_y in start function is:" + pos_y);
+
+        size = gameBoard.gridSize;
+
         gameBoard.setupScene();
-        renderBoundry = gameBoard.gridSize / 2;
+        
 	}
 	
 	// Update is called once per frame
@@ -23,6 +32,11 @@ public class CameraFollow : MonoBehaviour {
 		
 		// Keep a consistent size view ratio, no matter the screen size
 		myCam.orthographicSize = Screen.height / 100f / 4f;
+
+        pos_x = (int)transform.position.x;
+        pos_y = (int)transform.position.y;
+        Debug.Log("pos_x in Update fuction is :" + pos_x);
+        Debug.Log("pos_y in Update function is:" + pos_y);
 		
 		if(target)
 		{
@@ -34,9 +48,8 @@ public class CameraFollow : MonoBehaviour {
          * however it keeps regenerating one you exeed the*
          * renderBoundy so yea
          *************************************************/
-        if (transform.position.x > renderBoundry || transform.position.y > renderBoundry)
+        if (pos_x > (size /2) || pos_y > (size / 2))
         {
-            gameBoard = GetComponent<GameBoardCtrl>();
             gameBoard.setupScene();
         }
 		

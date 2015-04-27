@@ -11,6 +11,7 @@ public class GameBoardCtrl : MonoBehaviour
 
     Vector3 cameraPosition;
 	private List <Vector3> gridPositions = new List <Vector3> (); //A list of possible locations to place tiles.
+    private Transform boardHolder;
 
 	//sets up a list of possible grid positions
 	void initialiseGrid()
@@ -34,7 +35,8 @@ public class GameBoardCtrl : MonoBehaviour
 
 	void setBoard ()
 	{
-        
+        boardHolder = new GameObject("board").transform;
+
 		foreach (Vector3 step in gridPositions)
 		{
             //randomly select wich floorTiles we are going to instantiate
@@ -43,6 +45,8 @@ public class GameBoardCtrl : MonoBehaviour
             //instantiate the random floor tile, set its position to the index vector3 "step" and set the orientation to normal
             GameObject instance = Instantiate(toInstatiate, step, Quaternion.identity) as GameObject;
 
+            //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+            instance.transform.SetParent(boardHolder);
 		}
 	}
 
