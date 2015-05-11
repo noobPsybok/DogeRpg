@@ -3,13 +3,14 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    Animator anim; 
-
+    Animator anim;
+    BoardController myBoard;
 	// Use this for initialization
 	void Start () {
-
+        myBoard = new BoardController();
         anim = GetComponent<Animator>();
 
+        myBoard.sceneSetup();
 	}
 	
 	// Update is called once per frame

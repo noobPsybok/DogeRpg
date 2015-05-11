@@ -6,7 +6,7 @@ using Random = UnityEngine.Random; // tells Random to use Unity Engine random nu
 public class GameBoardCtrl : MonoBehaviour 
 {
 	public float tileSize = 0.4f; // the size of our tiles wich will be used to increment floor space acordingly
-	public int gridSize = 10; // the dimensions of our square board to be rendered 
+	public int gridSize = 16; // the dimensions of our square board to be rendered 
 	public GameObject[] floorTiles; // out list of floor tiles to be used
 
     Vector3 boardPosition;
