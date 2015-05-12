@@ -3,9 +3,6 @@ using System.Collections;
 
 public class TcLeft : MonoBehaviour 
 {
-
-	public Transform parentTransform;
-	
 	public StateManager manager;
 	public NotificationsManager notifications;
 	public BoardController board;
@@ -25,8 +22,8 @@ public class TcLeft : MonoBehaviour
 		manager = GameObject.Find("GameManager").GetComponent<StateManager>();
 		notifications = manager.NotificationRef;
 		
-		parentTransform = GameObject.Find("GameController").GetComponent<Transform>();
-		board = GameObject.Find("board").GetComponent<BoardController>();
+		board = GameObject.Find("GameController").GetComponent<BoardController>();
+
 		thisCollider = gameObject.GetComponent<BoxCollider2D>();
 		
 		gridSize = board.gridSize;
@@ -59,8 +56,7 @@ public class TcLeft : MonoBehaviour
 	{
 		if (other.CompareTag("Player") )
 		{
-			parentTransform.position -= new Vector3(Gds,0,0);
-			Debug.Log (other.name + " " + "has leaft");
+			//parentTransform.position -= new Vector3(Gds,0,0);
 		}
 	}
 }

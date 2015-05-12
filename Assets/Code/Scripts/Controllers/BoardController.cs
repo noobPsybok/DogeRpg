@@ -11,16 +11,18 @@ public class BoardController : MonoBehaviour
 	private PlayerController player;
 	private Vector3 playerPos;
 
+	public ColliderManager colliders;
+	public Vector3 collidersCache;
+
 	public int gridSize = 8;
-	public float tileSize = 0.4f;
+	public float tileSize = 0.8f;
 	public float Gds;//GridDirectionScalar
 	public int direction;
 
 	public StateManager manager;
 	public NotificationsManager notifications;
-
-	public ColliderManager colliders;
-	public Vector3 collidersPos;
+	
+	public Vector3 thisPosition;
 
 	void Awake ()
 	{
@@ -40,8 +42,11 @@ public class BoardController : MonoBehaviour
 		notifications.AddListener(this,"onBoardDown");
 		notifications.AddListener (this, "onBoardTopRight");
 
-		colliders = GameObject.Find("GameController").GetComponent<ColliderManager>();
-		collidersPos = colliders.cachePos;
+		colliders = gameObject.GetComponent<ColliderManager>();
+		collidersCache = colliders.cachePos;
+
+		thisPosition = gameObject.transform.position;
+
 		Gds = ( 2 * ( (tileSize * gridSize) + (tileSize/2) ) );
 		direction = 1;
 
@@ -60,8 +65,8 @@ public class BoardController : MonoBehaviour
 		{
 			for (j = -gridSize ; j <= gridSize; j++)
 			{
-				gridOffSetX =(collidersPos.x + tileSize*i);
-				gridOffSetY =(collidersPos.y + tileSize*j);
+				gridOffSetX =(collidersCache.x + tileSize*i);
+				gridOffSetY =(collidersCache.y + tileSize*j);
 				gridPoints.Add(new Vector3(gridOffSetX,gridOffSetY,0f));
 			}
 		}
@@ -70,7 +75,7 @@ public class BoardController : MonoBehaviour
 
 	public void makeBoard()
 	{
-		GameObject ContainerInstance = GameObject.Instantiate(boardContainer,collidersPos,Quaternion.identity) as GameObject;
+		GameObject ContainerInstance = GameObject.Instantiate(boardContainer,collidersCache,Quaternion.identity) as GameObject;
 
 		foreach(Vector3 plot in gridPoints)
 		{
@@ -86,20 +91,19 @@ public class BoardController : MonoBehaviour
 	{
 		makeGrid();
 		makeBoard();
-		Debug.Log("gridSize is" + gridPoints.Count );
 		//setFirst grid
 	}
 
 	public void onBoardRight ()
 	{
+		collidersCache = colliders.cachePos;
 		if(tile.Length != direction + 1)
 			direction += 1;
 		else if(direction != 1)
 			direction = 1;
-		collidersPos += new Vector3 (Gds,0,0);
+		//collidersPos += new Vector3 (Gds,0,0);
 		makeGrid();
 		makeBoard();
-		Debug.Log("collisers new position is " + collidersPos );
 	}
 
 	public void onBoardLeft ()
@@ -108,7 +112,7 @@ public class BoardController : MonoBehaviour
 			direction += 1;
 		else if(direction != 1)
 			direction = 1;
-		collidersPos += new Vector3 (-Gds,0,0);
+		//collidersPos += new Vector3 (-Gds,0,0);
 		makeGrid();
 		makeBoard();
 	}
@@ -119,7 +123,7 @@ public class BoardController : MonoBehaviour
 			direction += 1;
 		else if(direction != 1)
 			direction = 1;
-		collidersPos += new Vector3 (0,Gds,0);
+		//collidersPos += new Vector3 (0,Gds,0);
 		makeGrid();
 		makeBoard();
 	}
@@ -130,7 +134,7 @@ public class BoardController : MonoBehaviour
 			direction += 1;
 		else if(direction != 1)
 			direction = 1;
-		collidersPos += new Vector3 (0,-Gds,0);
+		//collidersPos += new Vector3 (0,-Gds,0);
 		makeGrid();
 		makeBoard();
 	}
@@ -141,7 +145,7 @@ public class BoardController : MonoBehaviour
 			direction += 1;
 		else if(direction != 1)
 			direction = 1;
-		collidersPos += new Vector3 (Gds,Gds,0);
+		//collidersPos += new Vector3 (Gds,Gds,0);
 		makeGrid();
 		makeBoard();
 	}

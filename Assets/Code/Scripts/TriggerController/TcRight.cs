@@ -3,8 +3,6 @@ using System.Collections;
 
 public class TcRight : MonoBehaviour 
 {
-	public Transform parentTransform;
-
 	public StateManager manager;
 	public NotificationsManager notifications;
 	public BoardController board;
@@ -24,8 +22,8 @@ public class TcRight : MonoBehaviour
 		manager = GameObject.Find("GameManager").GetComponent<StateManager>();
 		notifications = manager.NotificationRef;
 
-		parentTransform = GameObject.Find("GameController").GetComponent<Transform>();
-		board = GameObject.Find("board").GetComponent<BoardController>();
+		board = GameObject.Find("GameController").GetComponent<BoardController>();
+
 		thisCollider = gameObject.GetComponent<BoxCollider2D>();
 
 		gridSize = board.gridSize;
@@ -50,8 +48,8 @@ public class TcRight : MonoBehaviour
 		if (other.CompareTag("Player") )
 		{
 			//parentTransform.position += new Vector3(1f,1f,0f);
+			notifications.PostNotification(this,"GoRight");
 			notifications.PostNotification(this,"onBoardRight");
-			Debug.Log(other.name + " " + this.gameObject + " " + parentTransform.position);
 		}
 	}
 
@@ -59,8 +57,7 @@ public class TcRight : MonoBehaviour
 	{
 		if (other.CompareTag("Player") )
 		{
-			parentTransform.position += new Vector3(Gds,0,0);
-			Debug.Log (other.name + " " + "has leaft");
+			//parentTransform.position += new Vector3(Gds,0,0);
 		}
 	}
 }
