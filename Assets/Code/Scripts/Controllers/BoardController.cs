@@ -38,6 +38,7 @@ public class BoardController : MonoBehaviour
 		notifications.AddListener(this,"onBoardLeft");
 		notifications.AddListener(this,"onBoardUp");
 		notifications.AddListener(this,"onBoardDown");
+		notifications.AddListener (this, "onBoardTopRight");
 
 		colliders = GameObject.Find("GameController").GetComponent<ColliderManager>();
 		collidersPos = colliders.cachePos;
@@ -130,6 +131,17 @@ public class BoardController : MonoBehaviour
 		else if(direction != 1)
 			direction = 1;
 		collidersPos += new Vector3 (0,-Gds,0);
+		makeGrid();
+		makeBoard();
+	}
+
+	public void onBoardTopRight ()
+	{
+		if(tile.Length != direction + 1)
+			direction += 1;
+		else if(direction != 1)
+			direction = 1;
+		collidersPos += new Vector3 (Gds,Gds,0);
 		makeGrid();
 		makeBoard();
 	}
