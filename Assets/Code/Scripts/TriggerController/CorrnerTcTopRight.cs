@@ -3,10 +3,9 @@ using System.Collections;
 
 public class CorrnerTcTopRight : MonoBehaviour 
 {
-	public Transform parentTransform;
-	
 	public StateManager manager;
 	public NotificationsManager notifications;
+	
 	public BoardController board;
 	
 	private BoxCollider2D thisCollider = null;
@@ -24,8 +23,8 @@ public class CorrnerTcTopRight : MonoBehaviour
 		manager = GameObject.Find("GameManager").GetComponent<StateManager>();
 		notifications = manager.NotificationRef;
 		
-		parentTransform = GameObject.Find("GameController").GetComponent<Transform>();
-		board = GameObject.Find("board").GetComponent<BoardController>();
+		board = GameObject.Find("GameController").GetComponent<BoardController>();
+
 		thisCollider = gameObject.GetComponent<BoxCollider2D>();
 		
 		gridSize = board.gridSize;
@@ -33,7 +32,7 @@ public class CorrnerTcTopRight : MonoBehaviour
 		Gds = board.Gds;
 		
 		thisOffset = new Vector2((tileSize*gridSize)+ (tileSize/2),(tileSize*gridSize)+ (tileSize/2));
-		thisSize = new Vector2 ((tileSize*gridSize)+ tileSize, (tileSize*gridSize)+ tileSize);
+		thisSize = new Vector2 ( (tileSize*gridSize), (tileSize*gridSize) );
 		
 		thisCollider.offset = thisOffset;
 		thisCollider.size = thisSize;
@@ -51,7 +50,6 @@ public class CorrnerTcTopRight : MonoBehaviour
 		{
 			//parentTransform.position += new Vector3(1f,1f,0f);
 			notifications.PostNotification(this,"onBoardTopRight");
-			Debug.Log(other.name + " " + this.gameObject + " " + parentTransform.position);
 		}
 	}
 	
@@ -59,8 +57,7 @@ public class CorrnerTcTopRight : MonoBehaviour
 	{
 		if (other.CompareTag("Player") )
 		{
-			parentTransform.position += new Vector3(0,Gds,0);
-			Debug.Log (other.name + " " + "has leaft");
+			//parentTransform.position += new Vector3(0,Gds,0);
 		}
 	}
 

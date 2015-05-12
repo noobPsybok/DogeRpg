@@ -4,8 +4,6 @@ using System.Collections;
 public class TcDown : MonoBehaviour 
 
 {
-	public Transform parentTransform;
-	
 	public StateManager manager;
 	public NotificationsManager notifications;
 	public BoardController board;
@@ -25,8 +23,8 @@ public class TcDown : MonoBehaviour
 		manager = GameObject.Find("GameManager").GetComponent<StateManager>();
 		notifications = manager.NotificationRef;
 		
-		parentTransform = GameObject.Find("GameController").GetComponent<Transform>();
-		board = GameObject.Find("board").GetComponent<BoardController>();
+		board = GameObject.Find("GameController").GetComponent<BoardController>();
+
 		thisCollider = gameObject.GetComponent<BoxCollider2D>();
 		
 		gridSize = board.gridSize;
@@ -52,7 +50,6 @@ public class TcDown : MonoBehaviour
 		{
 			//parentTransform.position += new Vector3(1f,1f,0f);
 			notifications.PostNotification(this,"onBoardDown");
-			Debug.Log(other.name + " " + this.gameObject + " " + parentTransform.position);
 		}
 	}
 	
@@ -60,8 +57,7 @@ public class TcDown : MonoBehaviour
 	{
 		if (other.CompareTag("Player") )
 		{
-			parentTransform.position += new Vector3(0,-Gds,0);
-			Debug.Log (other.name + " " + "has leaft");
+			//parentTransform.position += new Vector3(0,-Gds,0);
 		}
 	}
 }
