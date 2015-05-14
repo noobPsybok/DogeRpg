@@ -48,8 +48,9 @@ public class TcRight : MonoBehaviour
 		if (other.CompareTag("Player") )
 		{
 			//parentTransform.position += new Vector3(1f,1f,0f);
+			notifications.PostNotification(this,"GoBack");
 			notifications.PostNotification(this,"GoRight");
-			notifications.PostNotification(this,"onBoardRight");
+			notifications.PostNotification(this,"onBoardMove");
 		}
 	}
 

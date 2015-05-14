@@ -33,14 +33,11 @@ public class BoardController : MonoBehaviour
 		myPos = gameObject.transform.position;
 
 	}
+
 	// Use this for initialization
 	void Start () 
 	{
-		notifications.AddListener(this,"onBoardRight");
-		notifications.AddListener(this,"onBoardLeft");
-		notifications.AddListener(this,"onBoardUp");
-		notifications.AddListener(this,"onBoardDown");
-		notifications.AddListener (this, "onBoardTopRight");
+		notifications.AddListener(this,"onBoardMove");
 
 		colliders = gameObject.GetComponent<ColliderManager>();
 		collidersCache = colliders.cachePos;
@@ -94,58 +91,13 @@ public class BoardController : MonoBehaviour
 		//setFirst grid
 	}
 
-	public void onBoardRight ()
+	public void onBoardMove ()
 	{
 		collidersCache = colliders.cachePos;
 		if(tile.Length != direction + 1)
 			direction += 1;
 		else if(direction != 1)
 			direction = 1;
-		//collidersPos += new Vector3 (Gds,0,0);
-		makeGrid();
-		makeBoard();
-	}
-
-	public void onBoardLeft ()
-	{
-		if(tile.Length != direction + 1)
-			direction += 1;
-		else if(direction != 1)
-			direction = 1;
-		//collidersPos += new Vector3 (-Gds,0,0);
-		makeGrid();
-		makeBoard();
-	}
-
-	public void onBoardUp()
-	{
-		if(tile.Length != direction + 1)
-			direction += 1;
-		else if(direction != 1)
-			direction = 1;
-		//collidersPos += new Vector3 (0,Gds,0);
-		makeGrid();
-		makeBoard();
-	}
-
-	public void onBoardDown()
-	{
-		if(tile.Length != direction + 1)
-			direction += 1;
-		else if(direction != 1)
-			direction = 1;
-		//collidersPos += new Vector3 (0,-Gds,0);
-		makeGrid();
-		makeBoard();
-	}
-
-	public void onBoardTopRight ()
-	{
-		if(tile.Length != direction + 1)
-			direction += 1;
-		else if(direction != 1)
-			direction = 1;
-		//collidersPos += new Vector3 (Gds,Gds,0);
 		makeGrid();
 		makeBoard();
 	}

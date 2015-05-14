@@ -48,7 +48,9 @@ public class TcLeft : MonoBehaviour
 		if (other.CompareTag("Player") )
 		{
 			//parentTransform.position += new Vector3(1f,1f,0f);
-			notifications.PostNotification(this,"onBoardLeft");
+			notifications.PostNotification(this,"GoBack");
+			notifications.PostNotification(this,"GoLeft");
+			notifications.PostNotification(this,"onBoardMove");
 		}
 	}
 	

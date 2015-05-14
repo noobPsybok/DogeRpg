@@ -45,6 +45,17 @@ public class NotificationsManager : MonoBehaviour
 			Listener.SendMessage (NotificationName, SendMessageOptions.DontRequireReceiver);
 	}
 
+	public void PostNotification(Vector3 SenderVector, string NotificationName)
+	{
+		//if no key in dictionary exists, then exit
+		if (!Listeners.ContainsKey (NotificationName))
+			return;
+		
+		//else post notification to all matching listenters
+		foreach (Component Listener in Listeners[NotificationName])
+			Listener.SendMessage (NotificationName,SenderVector, SendMessageOptions.DontRequireReceiver);
+	}
+
 	//Function to clear all Listeners
 	public void ClearListeners()
 	{
