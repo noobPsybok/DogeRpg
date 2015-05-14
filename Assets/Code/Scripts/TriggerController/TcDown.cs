@@ -49,7 +49,9 @@ public class TcDown : MonoBehaviour
 		if (other.CompareTag("Player") )
 		{
 			//parentTransform.position += new Vector3(1f,1f,0f);
-			notifications.PostNotification(this,"onBoardDown");
+			notifications.PostNotification(this,"GoBack");
+			notifications.PostNotification(this,"GoDown");
+			notifications.PostNotification(this,"onBoardMove");
 		}
 	}
 	

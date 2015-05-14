@@ -48,7 +48,9 @@ public class TcUp : MonoBehaviour
 		if (other.CompareTag("Player") )
 		{
 			//parentTransform.position += new Vector3(1f,1f,0f);
-			notifications.PostNotification(this,"onBoardUp");
+			notifications.PostNotification(this,"GoBack");
+			notifications.PostNotification(this,"GoUp");
+			notifications.PostNotification(this,"onBoardMove");
 		}
 	}
 	
